@@ -1,0 +1,77 @@
+[
+  {
+    "id": "1",
+    "name": "Inventory Man",
+    "url": "https://inventory.example.local",
+    "description": "Tracks stock and orders",
+    "owner": "Ana Ramos",
+    "category": "Operations",
+    "tags": [
+      "inventory",
+      "orders"
+    ],
+    "status": "maintenance",
+    "lastUpdated": "2026-02-01",
+    "iconText": "IM"
+  },
+  {
+    "id": "2",
+    "name": "HR Portal",
+    "url": "https://hr.example.local",
+    "description": "Employee services and payroll",
+    "owner": "J. Singh",
+    "category": "HR",
+    "tags": [
+      "employees",
+      "payroll"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-01-28",
+    "iconText": "HR"
+  },
+  {
+    "id": "3",
+    "name": "Incident Log",
+    "url": "https://incidents.example.local",
+    "description": "Logs incidents and tickets",
+    "owner": "Ops Team",
+    "category": "Support",
+    "tags": [
+      "tickets",
+      "support"
+    ],
+    "status": "down",
+    "lastUpdated": "2026-01-30",
+    "iconText": "IL"
+  },
+  {
+    "id": "4",
+    "name": "Analytics Dashboard3",
+    "url": "https://analytics.example.local",
+    "description": "Business metrics and reports",
+    "owner": "Data Team",
+    "category": "Data",
+    "tags": [
+      "reports",
+      "metrics"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-01-20",
+    "iconText": "AD"
+  },
+  {
+    "name": "Atezaz Ahmad",
+    "url": "https://atezaz.github.io/",
+    "description": "aasasas",
+    "owner": "AA",
+    "category": "Operations",
+    "tags": [
+      "inventory",
+      "orders"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-02-01",
+    "iconText": "SD",
+    "id": "1769949526965"
+  }
+]

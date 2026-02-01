@@ -4,45 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Department Applications Dashboard</title>
-  <style>
-    :root{--bg:#f6f8fa;--card:#fff;--accent:#2b6cb0;--muted:#6b7280;--success:#16a34a;--danger:#ef4444}
-    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Arial;line-height:1.5;margin:0;background:var(--bg);color:#111}
-    .wrap{max-width:1100px;margin:28px auto;padding:20px}
-    header{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-    h1{margin:0;font-size:1.4rem}
-    .subtitle{color:var(--muted);font-size:.95rem}
-    .controls{display:flex;gap:8px;margin-top:12px;align-items:center;flex-wrap:wrap}
-    input[type=search],select{padding:8px 10px;border:1px solid #e5e7eb;border-radius:8px;background:#fff}
-    button{background:var(--accent);color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer}
-    button.ghost{background:#fff;color:var(--accent);border:1px solid #cbd5e1}
-    .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:18px}
-    .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 1px 2px rgba(16,24,40,.04);display:flex;gap:12px;align-items:flex-start}
-    .icon{width:48px;height:48px;border-radius:8px;background:#eef2ff;color:var(--accent);display:grid;place-items:center;font-weight:700}
-    .meta{flex:1}
-    .meta h3{margin:0;font-size:1rem}
-    .meta p{margin:6px 0 8px;color:var(--muted);font-size:.92rem}
-    .meta .info{display:flex;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:.85rem}
-    .badge{padding:5px 8px;border-radius:999px;font-weight:600;font-size:.78rem}
-    .status-up{background:rgba(22,163,74,.12);color:var(--success);border:1px solid rgba(22,163,74,.12)}
-    .status-down{background:rgba(239,68,68,.08);color:var(--danger)}
-    .actions{display:flex;gap:8px}
-    .small{padding:6px 8px;font-size:.85rem;border-radius:8px}
-    .note{margin-top:18px;color:var(--muted);font-size:.9rem}
-    footer{margin-top:22px;color:var(--muted);font-size:.85rem}
-    @media (max-width:520px){header{align-items:flex-start}.controls{flex-direction:column;align-items:stretch}}
-    /* Modal styles */
-    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.36);z-index:1000}
-    .modal[open]{display:flex}
-    .modal-content{background:var(--card);padding:18px;border-radius:12px;width:min(560px,calc(100% - 40px));box-shadow:0 6px 18px rgba(2,6,23,.24)}
-    .modal h2{margin:0 0 12px;font-size:1.1rem}
-    .form-row{display:flex;gap:8px;margin-bottom:10px}
-    .form-row.column{flex-direction:column}
-    .form-row label{font-size:.85rem;color:var(--muted);min-width:90px}
-    .form-row input[type=text],.form-row input[type=url],.form-row textarea,.form-row select{flex:1;padding:8px 10px;border:1px solid #e5e7eb;border-radius:8px}
-    .form-row textarea{min-height:80px;resize:vertical}
-    .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
-    @media (max-width:520px){.modal-content{width:calc(100% - 28px)}}
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="wrap">
@@ -52,14 +14,17 @@
         <div class="subtitle">One page with links, owners, statuses and quick search — keep this file in your shared drive.</div>
       </div>
       <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-        <button id="exportBtn">Export CSV</button>
+        <span id="connectedStatus" style="font-size:.9rem;color:var(--muted);margin-left:6px"></span>
+        <button id="exportJsonBtn" class="ghost">Download JSON</button>
+        <button id="exportBtn">Download CSV</button>
+        <button id="connectBtn" class="ghost">Connect JSON</button>
         <button id="printBtn" class="ghost">Print</button>
       </div>
     </header>
 
     <div class="controls">
       <input id="search" type="search" placeholder="Search by name, owner, tag or description" style="flex:1">
-      <select id="filterStatus"><option value="all">All statuses</option><option value="up">Up</option><option value="down">Down</option></select>
+      <select id="filterStatus"><option value="all">All statuses</option><option value="up">Up</option><option value="maintenance">Under maintenance</option><option value="down">Down</option></select>
       <select id="filterCategory"><option value="all">All categories</option></select>
       <button id="addBtn" class="ghost small">+ Add app</button>
     </div>
@@ -90,7 +55,7 @@
           </div>
           <div class="form-row">
             <label>Status</label>
-            <select name="status"><option value="up">Up</option><option value="down">Down</option></select>
+            <select name="status"><option value="up">Up</option><option value="maintenance">Under maintenance</option><option value="down">Down</option></select>
             <label>Icon</label>
             <input name="iconText" type="text" placeholder="AA" />
           </div>
@@ -104,7 +69,7 @@
 
     <div id="grid" class="grid"></div>
 
-    <div class="note">Tip: Edit the <code>apps</code> array inside this file to add or update applications. See top of script for format.</div>
+    <div class="note">Tip: Use the <strong>+ Add app</strong> or <strong>Edit</strong> buttons to change the list. Changes are saved to <code>apps.json</code> in the same folder (you may be prompted to allow saving on first change).</div>
 
     <footer>Made for departmental use • Keep this page updated and share periodically ✅</footer>
   </div>
@@ -125,12 +90,140 @@
       }
     */
 
-    const apps = [
-      {name:'Inventory Manager',url:'https://inventory.example.local',description:'Tracks stock and orders',owner:'Ana Ramos',category:'Operations',tags:['inventory','orders'],status:'up',lastUpdated:'2026-01-25',iconText:'IM'},
-      {name:'HR Portal',url:'https://hr.example.local',description:'Employee services and payroll',owner:'J. Singh',category:'HR',tags:['employees','payroll'],status:'up',lastUpdated:'2026-01-28',iconText:'HR'},
-      {name:'Incident Log',url:'https://incidents.example.local',description:'Logs incidents and tickets',owner:'Ops Team',category:'Support',tags:['tickets','support'],status:'down',lastUpdated:'2026-01-30',iconText:'IL'},
-      {name:'Analytics Dashboard',url:'https://analytics.example.local',description:'Business metrics and reports',owner:'Data Team',category:'Data',tags:['reports','metrics'],status:'up',lastUpdated:'2026-01-20',iconText:'AD'}
-    ];
+    let apps = [];
+    const DEFAULT_APPS = [];
+
+    // Try to load `apps.json` in the same folder; if a writable file handle was previously stored, prefer it
+    async function loadInitialData(){
+      const errors = [];
+      // If opened directly from disk (file://), try a same-origin iframe load first — this reliably reads local files in many browsers
+      if(location.protocol === 'file:'){
+        try{
+          await new Promise((res, rej)=>{
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = './apps.json';
+            iframe.onload = ()=>{
+              try{
+                const doc = iframe.contentDocument || iframe.contentWindow.document;
+                const txt = (doc.body && doc.body.textContent) || doc.documentElement.textContent || '';
+                document.body.removeChild(iframe);
+                if(!txt) return rej(new Error('Empty apps.json via iframe'));
+                loadFromText(txt, 'apps.json');
+                defaultRootLoaded = true;
+                console.log('Loaded apps.json via iframe (early fallback) — default root loaded');
+                res(true);
+              }catch(err){ document.body.removeChild(iframe); rej(err) }
+            };
+            iframe.onerror = (e)=>{ try{ document.body.removeChild(iframe) }catch(_){}; rej(new Error('iframe load failed')) };
+            document.body.appendChild(iframe);
+          });
+          return;
+        }catch(e){ console.warn('Iframe early fallback failed', e && e.message); }
+      }
+      try{
+        // Primary: attempt a direct fetch of apps.json first when not opened via file://
+        if(location.protocol !== 'file:'){
+          try{
+            const resp = await fetch('apps.json');
+            if(resp.ok){
+              try{
+                const data = await resp.json();
+                if(Array.isArray(data)) apps = data; else if(data && Array.isArray(data.apps)) apps = data.apps; else apps = Array.isArray(data) ? data : [];
+                populateCategoryFilter(); render();
+                defaultRootLoaded = true;
+                console.log('Loaded apps.json via fetch (primary) — default root loaded');
+                return;
+              }catch(parseErr){ console.warn('Failed to parse apps.json from fetch:', parseErr && parseErr.message); }
+            }
+          }catch(fetchErr){ console.warn('Fetch attempt failed:', fetchErr && fetchErr.message); }
+        } else {
+          console.log('Skipping fetch of apps.json because page is opened via file:// — using iframe/FS fallbacks');
+        }
+
+        // First, attempt to read a stored file handle from IndexedDB
+        if('indexedDB' in window){
+          try{
+            const stored = await (async function(){
+              try{ const dbReq = indexedDB.open('apps-dashboard-handles',1); return await new Promise((res,rej)=>{ dbReq.onsuccess=e=>{ const db=e.target.result; const tx=db.transaction('handles','readonly'); const req=tx.objectStore('handles').get('appsFile'); req.onsuccess=()=>res(req.result); req.onerror=()=>rej(req.error); }; dbReq.onupgradeneeded=e=>{ const db=e.target.result; if(!db.objectStoreNames.contains('handles')) db.createObjectStore('handles'); }; dbReq.onerror=e=>rej(e.target.error); }); }catch(e){ return null }
+            })();
+
+            if(stored){
+              // We have a handle; check read permission (do not force prompt on load)
+              try{
+                if(typeof stored.queryPermission === 'function'){
+                  const q = await stored.queryPermission({mode:'read'});
+                  if(q === 'granted'){
+                    const txt = await (await stored.getFile()).text();
+                    loadFromText(txt, 'apps.json');
+                    currentFileHandle = stored;
+                    return;
+                  }
+                } else {
+                  // If queryPermission not available, try reading
+                  try{ const txt = await (await stored.getFile()).text(); loadFromText(txt,'apps.json'); currentFileHandle = stored; return }catch(e){ throw e }
+                }
+              }catch(e){ errors.push('Stored handle read failed: '+(e && e.message)); }
+            }
+          }catch(e){ errors.push('IndexedDB read failed: '+(e && e.message)); }
+        }
+
+        // Fetch already attempted first. If it failed, continue to the next fallbacks (FS Access API / iframe).
+
+        // If fetch failed and the browser supports File System Access API, prompt once to pick apps.json automatically
+        // (This will show the file picker immediately on load; user interaction is needed to grant access.)
+        if(window.showOpenFilePicker || window.showSaveFilePicker){
+          try{
+            const [handle] = await window.showOpenFilePicker({types:[{description:'JSON file',accept:{'application/json':['.json']}}], multiple:false});
+            if(handle){
+              currentFileHandle = handle;
+              try{
+                const txt = await readFromHandle(handle);
+                loadFromText(txt, 'apps.json');
+                await saveHandleToIdb(handle);
+                updateConnectedStatus();
+                console.log('Loaded apps.json via file picker');
+                return;
+              }catch(e){ errors.push('Read after auto-pick failed: '+(e && e.message)); }
+            }
+          }catch(e){ /* user dismissed picker or not permitted */ errors.push('File picker cancelled or not permitted'); }
+        }
+
+        // If we're running from file:// (no server), fetch often fails with CORS.
+        // Try a same-origin iframe load of apps.json (works when both files are on disk).
+        if(location.protocol === 'file:'){
+          try{
+            await new Promise((res, rej)=>{
+              const iframe = document.createElement('iframe');
+              iframe.style.display = 'none';
+              iframe.src = './apps.json';
+              iframe.onload = ()=>{
+                try{
+                  const doc = iframe.contentDocument || iframe.contentWindow.document;
+                  const txt = (doc.body && doc.body.textContent) || doc.documentElement.textContent || '';
+                  document.body.removeChild(iframe);
+                  if(!txt) return rej(new Error('Empty apps.json via iframe'));
+                  loadFromText(txt, 'apps.json');
+                  console.log('Loaded apps.json via iframe (file://)');
+                  res(true);
+                }catch(err){ document.body.removeChild(iframe); rej(err) }
+              };
+              iframe.onerror = (e)=>{ try{ document.body.removeChild(iframe) }catch(_){}; rej(new Error('iframe load failed')) };
+              document.body.appendChild(iframe);
+            });
+            return;
+          }catch(e){ errors.push('Iframe fallback failed: '+(e && e.message)); }
+        }
+      }catch(e){ errors.push('Unexpected error: '+(e && e.message)); }
+
+      // final fallback: leave apps empty and let the UI prompt the user to connect or place a root apps.json file, show helpful hint
+      apps = [];
+      populateCategoryFilter();
+      render();
+      console.log('No apps.json loaded; using empty list. Errors:', errors);
+      const help = 'No apps.json loaded. Place an updated "apps.json" file in this folder and reload the page, or click "Connect JSON" to link the file for editing (File System Access API required).';
+      try{ const g = document.getElementById('grid'); if(g) g.innerHTML = '<div style="grid-column:1/-1;color:var(--muted)">'+help + (errors.length ? '<br/><small style="color:#9ca3af">Details: '+errors.join(' | ')+'</small>' : '') + '</div>'; }catch(e){}
+    }
 
     // --- UI logic ---
     const grid = document.getElementById('grid');
@@ -141,11 +234,18 @@
     function uniqueCategories(list){return [...new Set(list.map(a=>a.category||'Other'))].sort()}
 
     function populateCategoryFilter(){
+      // reset options (preserve "all" option)
+      catFilter.innerHTML = '<option value="all">All categories</option>';
       const cats = uniqueCategories(apps);
       cats.forEach(c=>{const opt=document.createElement('option');opt.value=c;opt.textContent=c;catFilter.appendChild(opt)})
     }
 
     function render(){
+      // If no apps loaded at all, show a hint to place apps.json in the root or serve over HTTP so apps.json can be auto-loaded
+      if(apps.length === 0){
+        grid.innerHTML = '<div style="grid-column:1/-1;color:var(--muted)">No apps.json loaded. Place an updated "apps.json" file in the same folder or serve this folder over HTTP (e.g. python -m http.server) so apps.json can be auto-loaded.</div>';
+        return;
+      }
       const q = searchEl.value.trim().toLowerCase();
       const s = statusFilter.value;
       const c = catFilter.value;
@@ -174,10 +274,23 @@
         const tags = document.createElement('div'); tags.style.marginTop='8px'; (app.tags||[]).slice(0,5).forEach(t=>{const b=document.createElement('span');b.textContent=t;b.style.fontSize='.78rem';b.style.padding='4px 8px';b.style.background='#f3f4f6';b.style.marginRight='6px';b.style.borderRadius='999px';tags.appendChild(b)});
 
         const right = document.createElement('div'); right.style.display='flex'; right.style.flexDirection='column'; right.style.gap='8px';
-        const status = document.createElement('div'); status.className='badge '+(app.status==='up'?'status-up':'status-down'); status.textContent=app.status==='up'?'Up':'Down';
+        const status = document.createElement('div');
+        status.className = 'badge status-' + (app.status || 'up');
+        const statusTextMap = { up: 'Up', down: 'Down', maintenance: 'Under maintenance' };
+        status.textContent = statusTextMap[app.status] || (app.status ? app.status : 'Up');
         const actions = document.createElement('div'); actions.className='actions';
         const copyBtn = document.createElement('button'); copyBtn.className='small ghost'; copyBtn.textContent='Copy link'; copyBtn.onclick=()=>{navigator.clipboard.writeText(app.url).then(()=>{copyBtn.textContent='Copied'; setTimeout(()=>copyBtn.textContent='Copy link',1200)})}
-        const editBtn = document.createElement('button'); editBtn.className='small'; editBtn.textContent='Edit'; const idx = apps.indexOf(app); editBtn.onclick=()=>openForm(app, idx);
+        const editBtn = document.createElement('button'); editBtn.className='small'; editBtn.textContent='Edit'; const idx = apps.indexOf(app); editBtn.onclick=async ()=>{
+          if(!currentFileHandle){
+            if(!(window.showOpenFilePicker || window.showSaveFilePicker)){
+              return alert('To edit apps, please connect your local apps.json manually by copying the file into this folder and reloading the page. This browser does not support direct file access.');
+            }
+            if(!confirm('To save changes you must connect your local apps.json file. Connect now?')) return;
+            await connectToAppsJson();
+            if(!currentFileHandle) return; // user cancelled
+          }
+          openForm(app, idx);
+        };
         actions.append(copyBtn,editBtn);
         right.append(status,actions);
 
@@ -220,9 +333,19 @@
     modal.addEventListener('click', (e)=>{ if(e.target===modal) closeForm(); });
     document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && modal.hasAttribute('open')) closeForm(); });
 
-    document.getElementById('addBtn').addEventListener('click',()=>openForm());
+    document.getElementById('addBtn').addEventListener('click', async ()=>{
+      if(!currentFileHandle){
+        if(!(window.showOpenFilePicker || window.showSaveFilePicker)){
+          return alert('To add or edit apps, please connect your local apps.json manually by copying the file into this folder and reloading the page. This browser does not support direct file access.');
+        }
+        if(!confirm('To save changes you must connect your local apps.json file. Connect now?')) return;
+        await connectToAppsJson();
+        if(!currentFileHandle) return; // user cancelled or connect failed
+      }
+      openForm();
+    });
 
-    appForm.addEventListener('submit',(e)=>{
+    appForm.addEventListener('submit',async (e)=>{
       e.preventDefault();
       const fd = new FormData(appForm);
       const name = (fd.get('name')||'').trim();
@@ -239,27 +362,265 @@
         iconText: (fd.get('iconText')||'').toString().trim() || name.split(' ').map(s=>s[0]).slice(0,2).join('')
       };
       if(editIndex !== null && editIndex >= 0){
+        obj.id = apps[editIndex].id || String(Date.now());
         apps[editIndex] = {...apps[editIndex], ...obj};
       } else {
+        obj.id = String(Date.now());
         apps.push(obj);
       }
       populateCategoryFilter();
       render();
       closeForm();
+
+      // Persist changes to root apps.json (attempt direct write; fallback to download)
+      try{ await persistToAppsJson(); }catch(err){ console.error('Persist failed',err) }
     });
 
-    // Export CSV
-    document.getElementById('exportBtn').addEventListener('click',()=>{
-      const header = ['name','url','description','owner','category','tags','status','lastUpdated'];
-      const rows = apps.map(a=>header.map(h=>JSON.stringify((a[h]||'').toString().replace(/\"/g,'"'))).join(','));
-      const csv = header.join(',') + '\n' + rows.join('\n');
-      const b = new Blob([csv],{type:'text/csv'});
+    // Utility: simple download helper
+    function downloadFile(filename, content, type='application/json'){
+      const b = new Blob([content], {type});
       const url = URL.createObjectURL(b);
-      const a = document.createElement('a'); a.href=url; a.download='apps.csv'; a.click(); URL.revokeObjectURL(url);
-    });
+      const a = document.createElement('a'); a.href = url; a.download = filename; a.click(); URL.revokeObjectURL(url);
+    }
 
-    // Print
-    document.getElementById('printBtn').addEventListener('click',()=>window.print());
+    function exportJSON(){
+      const json = JSON.stringify(apps, null, 2);
+      downloadFile('apps.json', json, 'application/json');
+    }
+
+    function exportCSV(){
+      const header = ['id','name','url','description','owner','category','tags','status','lastUpdated','iconText'];
+      const rows = apps.map(a=>header.map(h=>{
+        const v = a[h]===undefined||a[h]===null ? '' : (Array.isArray(a[h])? a[h].join(';') : a[h].toString());
+        // naive CSV quoting
+        return '"'+v.replace(/"/g,'""')+'"';
+      }).join(','));
+      const csv = header.join(',') + '\n' + rows.join('\n');
+      downloadFile('apps.csv', csv, 'text/csv');
+    }
+
+    // Load from file content (auto-detect JSON or CSV)
+    function parseCSV(text){
+      const lines = text.trim().split(/\r?\n/).filter(Boolean);
+      if(!lines.length) return [];
+      const hdr = lines[0].split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(h=>h.replace(/^"|"$/g,'').trim());
+      const data = lines.slice(1).map(l=>{
+        const cols = l.split(/,(?=(?:[^"]*"[^"]*")*[^"]*$)/).map(c=>c.replace(/^"|"$/g,'').trim());
+        const obj = {};
+        hdr.forEach((h,i)=>{
+          let val = cols[i]||'';
+          if(h==='tags') val = val ? val.split(/;|,/) .map(s=>s.trim()).filter(Boolean) : [];
+          obj[h]= val;
+        });
+        // coerce types
+        if(obj.tags && !Array.isArray(obj.tags)) obj.tags = [obj.tags];
+        return obj;
+      });
+      // ensure id and iconText
+      return data.map((d,idx)=>({id:d.id || String(Date.now()+idx), name:d.name||'', url:d.url||'#', description:d.description||'', owner:d.owner||'', category:d.category||'Other', tags:d.tags||[], status:d.status||'up', lastUpdated:d.lastUpdated||new Date().toISOString().slice(0,10), iconText:d.iconText || (d.name? d.name.split(' ').map(s=>s[0]).slice(0,2).join('') : '')}));
+    }
+
+    function loadFromText(text, filename){
+      try{
+        if(filename && filename.toLowerCase().endsWith('.csv')){
+          apps = parseCSV(text);
+        } else {
+          const data = JSON.parse(text);
+          if(Array.isArray(data)){
+            apps = data;
+          } else if(data && Array.isArray(data.apps)){
+            apps = data.apps;
+          } else if(data && Array.isArray(data.data)){
+            apps = data.data;
+          } else {
+            // try to find the first array value in the object
+            const arr = data && typeof data === 'object' ? Object.values(data).find(v=>Array.isArray(v)) : null;
+            apps = arr || [];
+          }
+        }
+        populateCategoryFilter(); render();
+        return true;
+      }catch(e){
+        // try CSV as fallback
+        try{ apps = parseCSV(text); populateCategoryFilter(); render(); return true }catch(err){ alert('Failed to parse file'); return false }
+      }
+    }
+
+    // Persistence helpers - use File System Access API with IndexedDB to store the chosen handle so we don't ask every save
+    let currentFileHandle = null;
+    let defaultRootLoaded = false; // whether apps.json from root was loaded (read-only by default)
+
+    function openIdb(){
+      return new Promise((resolve, reject)=>{
+        const req = indexedDB.open('apps-dashboard-handles', 1);
+        req.onupgradeneeded = (e)=>{ const db = e.target.result; if(!db.objectStoreNames.contains('handles')) db.createObjectStore('handles'); };
+        req.onsuccess = (e)=>resolve(e.target.result);
+        req.onerror = (e)=>reject(e.target.error);
+      });
+    }
+
+    async function saveHandleToIdb(handle){
+      try{
+        const db = await openIdb();
+        const tx = db.transaction('handles','readwrite');
+        tx.objectStore('handles').put(handle, 'appsFile');
+        return await new Promise((res, rej)=>{ tx.oncomplete = ()=>res(true); tx.onerror = ()=>rej(tx.error); });
+      }catch(e){ console.warn('IDB save failed', e); return false }
+    }
+
+    async function getHandleFromIdb(){
+      try{
+        const db = await openIdb();
+        const tx = db.transaction('handles','readonly');
+        const req = tx.objectStore('handles').get('appsFile');
+        return await new Promise((res, rej)=>{ req.onsuccess = ()=>res(req.result); req.onerror = ()=>rej(req.error); });
+      }catch(e){ console.warn('IDB read failed', e); return null }
+    }
+
+    async function checkPermission(handle, mode = 'readwrite'){
+      if(!handle) return false;
+      try{
+        if(typeof handle.queryPermission === 'function'){
+          const q = await handle.queryPermission({mode});
+          if(q === 'granted') return true;
+          if(q === 'prompt'){
+            const r = await handle.requestPermission({mode});
+            return r === 'granted';
+          }
+          return false;
+        }
+        return true;
+      }catch(e){ return false }
+    }
+
+    async function readFromHandle(handle){
+      const file = await handle.getFile();
+      return await file.text();
+    }
+
+    async function writeToHandle(handle, content){
+      const writable = await handle.createWritable();
+      await writable.write(content);
+      await writable.close();
+    }
+
+    // Attempt to persist to the root apps.json. Prompts the user only when needed and only once to connect the file.
+    async function persistToAppsJson(){
+      const content = JSON.stringify(apps, null, 2);
+
+      // Try to reuse stored handle in memory
+      if(!currentFileHandle) currentFileHandle = await getHandleFromIdb();
+
+      if(currentFileHandle){
+        // if we have a handle, check or request write permission; do not prompt the user unless necessary
+        const ok = await checkPermission(currentFileHandle, 'readwrite');
+        if(ok){
+          try{
+            await writeToHandle(currentFileHandle, content);
+            return true;
+          }catch(e){
+            console.error('Write failed', e);
+          }
+        }
+        // permission denied or write failed: clear stored handle to avoid repeated failures
+        try{ const db = await openIdb(); const tx = db.transaction('handles','readwrite'); tx.objectStore('handles').delete('appsFile'); }catch(_){}
+        currentFileHandle = null;
+      }
+
+      // If the browser has FS Access API, ask the user (confirm) whether they'd like to connect the root file now
+      if(window.showOpenFilePicker || window.showSaveFilePicker){
+        if(!confirm('To save changes directly to apps.json, the app needs you to pick the file once. Pick apps.json now?')) return false;
+        try{
+          // prefer opening an existing file so users can pick the root file
+          if(window.showOpenFilePicker){
+            const [handle] = await window.showOpenFilePicker({types:[{description:'JSON file',accept:{'application/json':['.json']}}], multiple:false});
+            if(handle){
+              currentFileHandle = handle;
+              await saveHandleToIdb(handle);
+              await writeToHandle(currentFileHandle, content);
+              return true;
+            }
+          }
+          // fallback to a save picker
+          if(window.showSaveFilePicker){
+            const handle = await window.showSaveFilePicker({suggestedName:'apps.json',types:[{description:'JSON file',accept:{'application/json':['.json']}}]});
+            if(handle){
+              currentFileHandle = handle;
+              await saveHandleToIdb(handle);
+              await writeToHandle(currentFileHandle, content);
+              return true;
+            }
+          }
+        }catch(e){
+          console.warn('User cancelled or write failed', e);
+          return false;
+        }
+      }
+
+      // Final fallback: ask user whether they want to download updated file
+      if(confirm('This browser cannot write to local files automatically. Would you like to download an updated apps.json to replace the file in the site root?')){
+        exportJSON();
+        alert('Downloaded apps.json. Please replace the root apps.json file with the downloaded file to persist changes.');
+        return false;
+      }
+
+      return false;
+    }
+
+
+    // helper: update small connected status UI
+    function updateConnectedStatus(){
+      const el = document.getElementById('connectedStatus');
+      if(!el) return;
+      if(currentFileHandle) el.textContent = 'Connected to apps.json';
+      else if(defaultRootLoaded) el.textContent = 'Using root apps.json (read-only)';
+      else el.textContent = '';
+    }
+
+    // helper: user-initiated connect button
+    async function connectToAppsJson(){
+      if(!(window.showOpenFilePicker || window.showSaveFilePicker)){
+        alert('Your browser does not support direct file access. Edit apps.json locally and replace it in the site folder to update the dashboard.');
+        return false;
+      }
+      try{
+        if(window.showOpenFilePicker){
+          const [handle] = await window.showOpenFilePicker({types:[{description:'JSON file',accept:{'application/json':['.json']}}], multiple:false});
+          if(handle){
+            currentFileHandle = handle;
+            const saved = await saveHandleToIdb(handle);
+            if(!saved){
+              // can't persist handle across reloads in this browser
+              alert('Connected for this session, but your browser does not persist file handles across reloads. You may be prompted again after reload.');
+            }
+            try{ const txt = await readFromHandle(handle); loadFromText(txt,'apps.json'); }catch(e){console.warn('read failed after connect', e)}
+            updateConnectedStatus();
+            return true;
+          }
+        } else if(window.showSaveFilePicker){
+          const handle = await window.showSaveFilePicker({suggestedName:'apps.json',types:[{description:'JSON file',accept:{'application/json':['.json']}}]});
+          if(handle){
+            currentFileHandle = handle;
+            const saved = await saveHandleToIdb(handle);
+            if(!saved){
+              alert('Connected for this session, but your browser does not persist file handles across reloads. You may be prompted again after reload.');
+            }
+            await loadInitialData();
+            updateConnectedStatus();
+            return true;
+          }
+        }
+      }catch(e){ console.warn('connect cancelled', e); return false }
+      return false;
+    }
+
+    // wire buttons
+    document.getElementById('exportJsonBtn').addEventListener('click', exportJSON);
+    document.getElementById('exportBtn').addEventListener('click', exportCSV);
+    document.getElementById('printBtn').addEventListener('click', ()=>window.print());
+
+    // Connect button wiring
+    document.getElementById('connectBtn').addEventListener('click', connectToAppsJson);
 
     // Filters
     searchEl.addEventListener('input', render);
@@ -267,7 +628,9 @@
     catFilter.addEventListener('change', render);
 
     // Init
-    populateCategoryFilter();render();
+    loadInitialData().then(()=>{ updateConnectedStatus(); });
+
+    // connect button removed; no direct wiring
   </script>
 </body>
 </html>
