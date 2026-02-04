@@ -1,77 +1,66 @@
 [
   {
     "id": "1",
-    "name": "Inventory Manager23",
-    "url": "https://inventory.example.local",
-    "description": "Tracks stock and orders",
-    "owner": "Ana Ramos",
-    "category": "Operations",
+    "name": "EduTec Grading System",
+    "url": "https://edutec-assess.github.io/",
+    "description": "The EduTec Grading System is a centralized platform for assessing academic submissions such as BA/MA theses and seminar reports. It offers structured, report-specific rubrics. By standardizing evaluation criteria, the system reduces educator workload while minimizing assessment errors and ensuring fair, consistent grading.",
+    "owner": "Atezaz/Hendrik",
+    "category": "Assessment",
     "tags": [
-      "inventory",
-      "orders"
+      "Assessment",
+      "System",
+      "App"
     ],
-    "status": "maintenance",
+    "status": "up",
     "lastUpdated": "2026-02-03",
-    "iconText": "IM"
+    "iconText": "GS"
   },
   {
     "id": "2",
-    "name": "HR Portal",
-    "url": "https://hr.example.local",
-    "description": "Employee services and payroll",
-    "owner": "J. Singh",
-    "category": "HR",
+    "name": "EduTec Grading System - GenAI",
+    "url": "https://edutec-assess-llm.github.io/",
+    "description": "In this version, the EduTec Grading System uses GenAI not for assessment, but to support educators in creating clearer, higher-quality rubrics.",
+    "owner": "Atezaz/Hendrik",
+    "category": "Assessment",
     "tags": [
-      "employees",
-      "payroll"
+      "GenAI",
+      "Assessment",
+      "App"
     ],
-    "status": "up",
-    "lastUpdated": "2026-01-28",
-    "iconText": "HR"
-  },
-  {
-    "id": "3",
-    "name": "Incident Log",
-    "url": "https://incidents.example.local",
-    "description": "Logs incidents and tickets",
-    "owner": "Ops Team",
-    "category": "Support",
-    "tags": [
-      "tickets",
-      "support"
-    ],
-    "status": "down",
-    "lastUpdated": "2026-01-30",
-    "iconText": "IL"
+    "status": "maintenance",
+    "lastUpdated": "2026-02-03",
+    "iconText": "GS"
   },
   {
     "id": "4",
-    "name": "Analytics Dashboard3",
-    "url": "https://analytics.example.local",
-    "description": "Business metrics and reports",
-    "owner": "Data Team",
-    "category": "Data",
+    "name": "EchoMeet - SD VPN needed",
+    "url": "https://echomeet.impact.studiumdigitale.uni-frankfurt.de/",
+    "description": "EchoMeet is an AI-powered meeting transcription and summarization app that turns recorded meetings into clear, actionable insights. By uploading an audio file (e.g., MP3), users can generate accurate transcripts, analyze the content with their chosen LLM model, and produce concise summaries. Results can be easily exported and downloaded as a PDF for sharing or documentation.",
+    "owner": "Atezaz",
+    "category": "Transcription tool",
     "tags": [
-      "reports",
-      "metrics"
+      "transcription",
+      "AI",
+      "LLM"
     ],
     "status": "up",
-    "lastUpdated": "2026-01-20",
-    "iconText": "AD"
+    "lastUpdated": "2026-02-03",
+    "iconText": "EM"
   },
   {
-    "name": "Atezaz Ahmad",
-    "url": "https://atezaz.github.io/",
-    "description": "aasasas",
-    "owner": "AA",
-    "category": "Operations",
+    "name": "AI ToolLab",
+    "url": "https://gki.studiumdigitale.uni-frankfurt.de/ai-toollab/",
+    "description": "Goethe University's AI ToolLab is the central access point for a broad range of AI tools. It provides teachers and, in the future, all students and staff, with secure, experimental access to new AI technologies. Together with the AI Community of Practice, these tools are tested, reflected on, and refined before being rolled out as integrated services across the university.",
+    "owner": "Goethe University and SD",
+    "category": "AI",
     "tags": [
-      "inventory",
-      "orders"
+      "AI",
+      "ToolLab",
+      "GenAI"
     ],
     "status": "up",
-    "lastUpdated": "2026-02-01",
-    "iconText": "SD",
+    "lastUpdated": "2026-02-03",
+    "iconText": "TL",
     "id": "1769949526965"
   }
 ]
