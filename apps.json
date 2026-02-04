@@ -62,5 +62,50 @@
     "lastUpdated": "2026-02-03",
     "iconText": "TL",
     "id": "1769949526965"
+  },
+  {
+    "name": "SD Moodle",
+    "url": "https://moodle.studiumdigitale.uni-frankfurt.de/moodle/",
+    "description": "",
+    "owner": "SD",
+    "category": "Moodle",
+    "tags": [
+      "LMS",
+      "Moodle"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-02-04",
+    "iconText": "MO",
+    "id": "1770212333400"
+  },
+  {
+    "name": "EduTec Moodle",
+    "url": "https://moodle.edutec.science/moodle/login/index.php",
+    "description": "",
+    "owner": "Hendrik",
+    "category": "Moodle",
+    "tags": [
+      "Moodle",
+      "LMS"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-02-04",
+    "iconText": "MO",
+    "id": "1770212404363"
+  },
+  {
+    "name": "EduTec GDrive",
+    "url": "https://drive.google.com/drive/folders/1lnNJSjCbLqsB68YdDfrvcaWcNEYqEOa5?usp=sharing",
+    "description": "This Google Drive folder brings together a variety of resources shared exclusively with EduTec members, such as PhD information, literature reviews, presentations, papers, tools, and more..",
+    "owner": "EdtTec team",
+    "category": "Data",
+    "tags": [
+      "Drive",
+      "information"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-02-04",
+    "iconText": "ED",
+    "id": "1770213082093"
   }
 ]
