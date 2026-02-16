@@ -94,7 +94,7 @@
     "id": "1770212404363"
   },
   {
-    "name": "EduTec Drive",
+    "name": "EduTec Drive (Temporary)",
     "url": "https://drive.google.com/drive/folders/1lnNJSjCbLqsB68YdDfrvcaWcNEYqEOa5?usp=sharing",
     "description": "This Drive folder brings together a variety of resources shared exclusively with EduTec members, such as PhD information, literature reviews, presentations, papers, tools, and more..",
     "owner": "EdtTec team",
@@ -104,8 +104,25 @@
       "information"
     ],
     "status": "up",
-    "lastUpdated": "2026-02-04",
+    "lastUpdated": "2026-02-16",
     "iconText": "ED",
     "id": "1770213082093"
+  },
+  {
+    "name": "Thesis Topics - EduTec",
+    "url": "https://dipfde.sharepoint.com/:p:/s/T_IZB_EducationalTechnologies/IQA4oA_cSxcYRolZSj7EgIyoAeCGmaALLmtof46hconZ0Eg?e=6B6Pcz",
+    "description": "Here, you can add, remove, or update the thesis topics you wish to supervise and publish on the Edutec website.",
+    "owner": "EduTec",
+    "category": "Thesis Topics",
+    "tags": [
+      "MS",
+      "BS",
+      "Thesis",
+      "Topics"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-02-16",
+    "iconText": "TT",
+    "id": "1771253113256"
   }
 ]
