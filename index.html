@@ -12,7 +12,7 @@
       <div>
         <a target="_blank" href="https://edutec.science/"> <img src="EduTec.png" alt="EduTec Logo" style="height:120px"></a>
 
-        <div class="subtitle">One page with links, statuses and quick search.</div>
+        <div class="subtitle">One page for all <a target="_blank" href="https://edutec.science/">EduTec</a> applications with links, statuses and quick search.</div>
       </div>
       <div style="margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <span id="connectedStatus" style="font-size:.9rem;color:var(--muted);margin-left:6px"></span>
@@ -262,7 +262,9 @@
         const ic = document.createElement('div');ic.className='icon';ic.textContent=app.iconText||app.name.split(' ').map(s=>s[0]).slice(0,2).join('');
         const meta = document.createElement('div');meta.className='meta';
         const h3 = document.createElement('h3');const a = document.createElement('a');a.href=app.url; a.target='_blank'; a.rel='noopener'; a.textContent=app.name; a.style.color='inherit';
-        h3.appendChild(a);
+        // Copy button placed inline with the name/header
+        const copyHeadBtn = document.createElement('button'); copyHeadBtn.className='small ghost'; copyHeadBtn.textContent='Copy link'; copyHeadBtn.onclick=()=>{navigator.clipboard.writeText(app.url).then(()=>{copyHeadBtn.textContent='Copied'; setTimeout(()=>copyHeadBtn.textContent='Copy link',1200)})}
+        h3.append(a, copyHeadBtn);
         const p = document.createElement('p'); p.textContent = app.description || '';
         const info = document.createElement('div'); info.className='info';
         const owner = document.createElement('span'); owner.textContent='Owner: '+(app.owner||'—');
@@ -277,7 +279,6 @@
         const statusTextMap = { up: 'Up', down: 'Down', maintenance: 'Under maintenance' };
         status.textContent = statusTextMap[app.status] || (app.status ? app.status : 'Up');
         const actions = document.createElement('div'); actions.className='actions';
-        const copyBtn = document.createElement('button'); copyBtn.className='small ghost'; copyBtn.textContent='Copy link'; copyBtn.onclick=()=>{navigator.clipboard.writeText(app.url).then(()=>{copyBtn.textContent='Copied'; setTimeout(()=>copyBtn.textContent='Copy link',1200)})}
         const editBtn = document.createElement('button'); editBtn.className='small'; editBtn.textContent='Edit'; const idx = apps.indexOf(app); editBtn.onclick=async ()=>{
           if(!currentFileHandle){
             if(!(window.showOpenFilePicker || window.showSaveFilePicker)){
@@ -289,7 +290,25 @@
           }
           openForm(app, idx);
         };
-        actions.append(copyBtn,editBtn);
+        const deleteBtn = document.createElement('button'); deleteBtn.className='small ghost'; deleteBtn.textContent='Delete'; deleteBtn.style.color = 'var(--danger)'; deleteBtn.onclick = async ()=>{
+          if(!currentFileHandle){
+            if(!(window.showOpenFilePicker || window.showSaveFilePicker)){
+              return alert('To delete apps, please connect your local apps.json manually by editing the file in this folder and reloading the page. This browser does not support direct file access.');
+            }
+            if(!confirm('To save changes you must connect your local apps.json file. Connect now?')) return;
+            await connectToAppsJson();
+            if(!currentFileHandle) return; // user cancelled
+          }
+          if(!confirm('Delete "'+app.name+'"? This cannot be undone.')) return;
+          const i = apps.indexOf(app);
+          if(i > -1){
+            apps.splice(i,1);
+            populateCategoryFilter();
+            render();
+            try{ await persistToAppsJson(); }catch(e){ console.error('Persist failed', e); }
+          }
+        };
+        actions.append(editBtn,deleteBtn);
         right.append(status,actions);
 
         meta.append(h3,p,info,tags);

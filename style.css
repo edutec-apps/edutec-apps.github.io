@@ -105,13 +105,27 @@ button.ghost {
 
 .meta h3 {
     margin: 0;
-    font-size: 1rem
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.meta h3 a {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-right: 8px;
 }
 
 .meta p {
     margin: 6px 0 8px;
     color: var(--muted);
-    font-size: .92rem
+    font-size: .92rem;
+    white-space: pre-wrap;
+    word-wrap: break-word
 }
 
 .meta .info {
@@ -148,7 +162,9 @@ button.ghost {
 
 .actions {
     display: flex;
-    gap: 8px
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-end;
 }
 
 .small {
