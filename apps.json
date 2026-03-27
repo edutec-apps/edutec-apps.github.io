@@ -142,5 +142,35 @@
     "lastUpdated": "2026-03-10",
     "iconText": "TR",
     "id": "1773153151825"
+  },
+  {
+    "name": "SD Nextcloud",
+    "url": "https://ssl.studiumdigitale.uni-frankfurt.de/nextcloud/apps/dashboard/",
+    "description": "Files related to SD",
+    "owner": "SD",
+    "category": "Data, Cloud",
+    "tags": [
+      "SD Data",
+      "Cloud"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-03-27",
+    "iconText": "NC",
+    "id": "1774606321514"
+  },
+  {
+    "name": "DIPF Nextcloud",
+    "url": "https://cloud.educs-hosting.net/apps/dashboard/",
+    "description": "Data related to DIPF and EduTec",
+    "owner": "DIPF",
+    "category": "Data, Cloud",
+    "tags": [
+      "DIPF Data",
+      "Cloud"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-03-27",
+    "iconText": "NC",
+    "id": "1774606426289"
   }
 ]
