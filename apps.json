@@ -188,5 +188,35 @@
     "lastUpdated": "2026-04-08",
     "iconText": "GU",
     "id": "1775656464860"
+  },
+  {
+    "name": "FoLA - digital",
+    "url": "https://fola.digital/",
+    "description": "Seeking an advanced digital platform for seamless collaboration and crafting impactful learning design solutions? Discover FoLA | digital, an innovative tool explicitly designed for this objective! It offers a diverse range of real-time collaboration features, enabling your team to produce highly effective learning designs. FoLA | digital empowers you to develop analytics-driven as well as classical, customised learning experiences, precisely aligned with the needs of both educators and learners while ensuring a strong correlation with the desired learning outcomes.",
+    "owner": "SD",
+    "category": "Course Designing",
+    "tags": [
+      "Course Designing",
+      "Design"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-04-08",
+    "iconText": "LD",
+    "id": "1775656700014"
+  },
+  {
+    "name": "OpenLAIR - Open Learning Analytics Indicator Repository",
+    "url": "https://openlair-edutec.github.io/",
+    "description": "Open Learning Analytics Indicator Repository (OpenLAIR) is a learning analytics tool that helps course designers, teachers, students and educational researchers to make informed decisions about the selection of learning activities and LA indicators for their course design or LA dashboard.",
+    "owner": "Atezaz/Hendrik",
+    "category": "Learning analytics, Indicators",
+    "tags": [
+      "Indicators",
+      "repository"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-04-08",
+    "iconText": "LA",
+    "id": "1775656830976"
   }
 ]
