@@ -172,5 +172,21 @@
     "lastUpdated": "2026-03-27",
     "iconText": "NC",
     "id": "1774606426289"
+  },
+  {
+    "name": "GU Kurzlink-Service / link shortener",
+    "url": "https://tinygu.de/?url%3D",
+    "description": "Goethe University URL shortening service. The original link must belong to one of the following domains: uni-frankfurt.de, goethe-university-frankfurt.de, hebis.de, asta-frankfurt.de, hessenhub.de, or hessenbox.de",
+    "owner": "GU",
+    "category": "link shortener",
+    "tags": [
+      "link shortener",
+      "TinyURL",
+      "TinyGU"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-04-08",
+    "iconText": "GU",
+    "id": "1775656464860"
   }
 ]
