@@ -31,6 +31,40 @@
     "lastUpdated": "2026-02-03",
     "iconText": "GS"
   },
+   {
+    "name": "Mentoring / Supervising BA-MA Theses",
+    "url": "https://forms.cloud.microsoft/e/neAqsCrMVx",
+    "description": "This forum is mandatory for thesis supervisors. It must be completed before a student can submit a BS or MS thesis registration request to the examination office via Moodle, so that Heather or Hendrik knows who the supervisor is once the notification arrives.",
+    "owner": "Heather/Hendrik",
+    "category": "Supervision",
+    "tags": [
+      "Supervision",
+      "Mentoring",
+      "Assessment"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-10-02",
+    "iconText": "SU",
+    "id": "1790940342394"
+  },
+  {
+    "name": "BA / MA Thesis Registration",
+    "url": "https://moodle.studiumdigitale.uni-frankfurt.de/moodle/course/view.php?id=7153",
+    "description": "1. Enroll in the Moodle course “Prüfungsamt Informatik” (Examination Office Computer Science):\n\nhttps://moodle.studiumdigitale.uni-frankfurt.de/moodle/course/view.php?id=7153\n\n2. There, please click on “Anmeldung Abschlussarbeiten” (Registration of Final Theses) and enter the details of your thesis:\n\nhttps://moodle.studiumdigitale.uni-frankfurt.de/moodle/course/section.php?id=102618\n\nProviding the name of the second examiner significantly speeds up the evaluation process. Therefore, it is best to clarify beforehand who could serve as the second examiner and also enter this information in Moodle.\n\n3. You will receive a confirmation email within 24 hours. The first examiner (supervisor) must reply to this email for the topic to be officially registered.",
+    "owner": "EduTec",
+    "category": "Thesis registration",
+    "tags": [
+      "Thesis",
+      "registration",
+      "BA",
+      "MS",
+      "Anmeldung"
+    ],
+    "status": "up",
+    "lastUpdated": "2026-03-10",
+    "iconText": "TR",
+    "id": "1773153151825"
+  },
   {
     "id": "4",
     "name": "EchoMeet - SD VPN needed",
@@ -124,24 +158,6 @@
     "lastUpdated": "2026-02-16",
     "iconText": "TT",
     "id": "1771253113256"
-  },
-  {
-    "name": "BA / MA thesis registration",
-    "url": "https://moodle.studiumdigitale.uni-frankfurt.de/moodle/course/view.php?id=7153",
-    "description": "1. Enroll in the Moodle course “Prüfungsamt Informatik” (Examination Office Computer Science):\n\nhttps://moodle.studiumdigitale.uni-frankfurt.de/moodle/course/view.php?id=7153\n\n2. There, please click on “Anmeldung Abschlussarbeiten” (Registration of Final Theses) and enter the details of your thesis:\n\nhttps://moodle.studiumdigitale.uni-frankfurt.de/moodle/course/section.php?id=102618\n\nProviding the name of the second examiner significantly speeds up the evaluation process. Therefore, it is best to clarify beforehand who could serve as the second examiner and also enter this information in Moodle.\n\n3. You will receive a confirmation email within 24 hours. The first examiner (supervisor) must reply to this email for the topic to be officially registered.",
-    "owner": "EduTec",
-    "category": "Thesis registration",
-    "tags": [
-      "Thesis",
-      "registration",
-      "BA",
-      "MS",
-      "Anmeldung"
-    ],
-    "status": "up",
-    "lastUpdated": "2026-03-10",
-    "iconText": "TR",
-    "id": "1773153151825"
   },
   {
     "name": "SD Nextcloud",
